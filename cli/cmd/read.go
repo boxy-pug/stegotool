@@ -1,12 +1,12 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
 
+	imageutil "github.com/boxy-pug/stegotool/pkg/imageutil"
 	"github.com/spf13/cobra"
 )
 
@@ -20,8 +20,24 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
+	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("read called")
+		imagePath := args[0]
+
+		image := imageutil.StegoImage{
+			FilePath: imagePath,
+		}
+
+		err := image.LoadImage()
+		if err != nil {
+			fmt.Printf("error loading image: %s\n", err)
+		}
+
+		err = image.ReadMessageFromImage()
+		if err != nil {
+			fmt.Printf("error reading message: %s", err)
+		}
 	},
 }
 

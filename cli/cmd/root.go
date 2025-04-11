@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var verbose bool
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "stegotool",
@@ -50,6 +52,7 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli.yaml)")
+	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "enable verbose output")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
